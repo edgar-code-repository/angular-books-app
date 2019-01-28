@@ -1,0 +1,25 @@
+<div class="container">
+	<div id="menu-bar">
+		<h1>Authors</h1>
+		<ul>
+			<li><a href="authorsList">Authors</a></li>
+			<li><a href="categoriesList">Categories</a></li>					
+			<li><a href="">Books</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="container">  
+	<div id="divBooks">
+		<div class="col-sm-4" *ngFor="let author of authorsList">
+		  <div class="thumbnail" style="height:120px">
+			<div class="caption">
+			  <div>
+				<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
+			  </div>
+						  
+			 </div>
+			 </div>
+		</div>
+	</div>
+</div>

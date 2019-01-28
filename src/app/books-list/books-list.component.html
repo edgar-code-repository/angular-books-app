@@ -1,0 +1,61 @@
+<div class="container">
+	<div id="menu-bar">
+		<h1>Programming Books</h1>
+		<ul>
+			<li><a href="authorsList">Authors</a></li>
+			<li><a href="categoriesList">Categories</a></li>					
+			<li><a href="">Books</a></li>
+		</ul>
+	</div>
+</div>
+
+<form #f="ngForm">
+<div class="container"> 
+    <div class="row categoryRow">
+      <div class="col-sm-6">
+        <div class="input-group">
+          <span class="input-group-addon">Category:</span>
+          <select class="form-control" id="selectCategory" [(ngModel)]="categorySelected" name="selectCategory">
+              <option value="-1" >All</option>
+              <option *ngFor="let c of categoriesList" value={{c.categoryId}}>
+                  {{c.name}}
+            </option>              
+          </select>		
+        </div>
+      </div>		
+      <div class="col-sm-6">
+        <div class="input-group">
+          <input type="button" value="New Book" class="btn btn-primary" (click)="goToRoute('createBook')" />
+
+          <!--          
+            &nbsp;
+          <input type="button" value="New Book 2" class="btn btn-primary" [routerLink]="['/createBook']" />
+          -->
+
+        </div>		
+      </div>
+    </div>
+</div>
+</form>
+
+<div class="container">  
+  <div id="divBooks">
+      <div class="col-sm-4" *ngFor="let book of booksList | sortBooksByName | filterByCategory:[categorySelected]">
+        <div class="thumbnail" style="height:400px">
+          <img style="height:220px; width:180px;" src="http://localhost:8082/images-test/{{book.imageName}}" />
+          <div class="caption">
+            <div>
+              <h3>&nbsp;{{ book.name }}</h3>
+              <h4>
+                Author(s): &nbsp;
+                <span *ngFor="let author of book.authors; let lastElement = last">
+                  {{ author.firstName + " " + author.lastName }} <span [hidden]="lastElement">,</span>
+                </span>
+              </h4>
+            </div>
+                        
+           </div>
+           </div>
+      </div>
+  </div>
+</div>

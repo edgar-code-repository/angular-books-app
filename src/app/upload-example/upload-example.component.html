@@ -1,0 +1,17 @@
+<h1>File Upload</h1>
+
+
+<label class="image-upload-container btn btn-bwm">
+  <span>Select Image</span>
+  <input #imageInput
+         type="file"
+         accept="image/*"
+         (change)="onFileChanged($event)">
+</label>
+
+<br/><br/>
+<input type="button" value="Upload" (click)="onUpload()"  />
+
+
+
+

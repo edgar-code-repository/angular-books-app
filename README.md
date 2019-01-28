@@ -1,3 +1,12 @@
+Angular 7 Example Project - Bookstore REST Client
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bitbucket URL: https://brightdog@bitbucket.org/brightdog/books-test.git
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 # BooksTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.

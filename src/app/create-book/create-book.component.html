@@ -1,0 +1,165 @@
+<div class="container"> 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Create Book</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<form [formGroup]="newBookForm" (ngSubmit)="newBookSubmit()"  >
+
+    <!--
+    <h3>{{ newBookForm.value | json }}</h3>        
+    -->
+
+    <div id="formBook" *ngIf="!flagContinueSaveBook">
+
+        <div class="container">
+            <div class="row newBookRow">
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon">Name:</span>
+                        <input type="text" class="form-control" id="bookName" name="bookName" formControlName="bookName" required />		
+                    </div>
+                </div>
+            </div>
+            <div class="row newBookRow">
+                <div class="col-sm-10">             
+                    <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookName'].valid && newBookForm.controls['bookName'].touched">
+                    Field Name is required.
+                    </div>
+                </div>
+            </div>            
+            
+            <div class="row newBookRow">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">ISBN:</span>
+                        <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" formControlName="bookIsbn" required />			
+                    </div>	
+                </div>
+            </div>
+            <div class="row newBookRow">
+                <div class="col-sm-6">              
+                    <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookIsbn'].valid && newBookForm.controls['bookIsbn'].touched">
+                        Field Isbn is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row newBookRow">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Category:</span>
+                            <select class="form-control" id="selectCategories" name="selectCategories" formControlName="bookCategory" required>
+                                <option value="">Select Category</option>
+        
+                                <option *ngFor="let category of categoriesList" [value]="category.categoryId">
+                                    {{ category.name }}
+                                </option>
+                        </select>		
+                    </div>
+                </div>
+            </div>
+
+        </div>
+		
+        <div class="container">
+            <div class="row newBookRow">
+                <div class="col-sm-12">
+                    <span class="input-group-addon">Description:</span>
+                    <textarea   class="form-control" 
+                            id="bookDescription" 
+                            name="bookDescription" 
+                            formControlName="bookDescription"
+                            required rows="15"></textarea>		
+
+                </div>              
+            </div>
+            <div class="row newBookRow">
+                <div class="col-sm-12">             
+                    <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookDescription'].valid && newBookForm.controls['bookDescription'].touched">
+                    Field Description is required.
+                    </div>
+                </div>   
+            </div>         
+        </div>
+		
+        <div class="container">	
+            <div class="row newBookRow">
+              <div class="col-sm-12">
+                <input type="button" value="Continue" class="btn btn-primary" (click)="continueAddBook()" />&nbsp;
+                <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/booksList']" />
+              </div>
+            </div>
+        </div>
+
+	  </div>
+	
+    <div id="formAuthorsBook" *ngIf="flagContinueSaveBook">
+
+        <div class="container">
+            <div class="row newBookRow">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">Book image:</span>
+                        <input  type="file" 
+                                name="bookImage" 
+                                formControlName="bookImage" 
+                                accept="image/*" 
+                                #imageInput
+                                (change)="onFileChanged($event)" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+
+                </div>		
+            </div>	
+            <div style="padding-bottom:35px;"></div>	
+            <div class="row newBookRow">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">Authors:</span>
+                      <select class="form-control" id="selectAuthors" formControlName="bookAuthor">
+                        <option value="-1" >All</option>
+
+                        <option *ngFor="let author of authorsList" [value]="author.authorId">
+                            {{ author.firstName + " " + author.lastName }}
+                        </option>
+                      </select>		
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" value="Add author" class="btn btn-primary" (click)="addSelectedAuthor()" />
+                </div>		
+            </div>
+        </div>		
+
+		<div class="container">
+            <div class="row newBookRow">		
+                <div class="col-sm-4">
+                    <ul>
+                        <li style="padding-bottom:5px;" *ngFor="let addedAuthor of selectedAuthorsList"> 
+                            {{ addedAuthor.firstName + " " + addedAuthor.lastName }} 
+                            &nbsp;<input type="button" value="Delete" class="btn btn-xs btn-success" (click)="deleteSelectedAuthor(addedAuthor.authorId)" />
+                        </li>
+                    </ul>
+                </div>		
+            </div>
+        </div>        
+
+        <div class="container">	
+            <div class="row newBookRow">
+                <div class="col-sm-12">	
+                  <input type="submit" value="Save book" class="btn btn-primary" [disabled]="!newBookForm.valid" />&nbsp;
+                  <input type="button" value="Back" class="btn btn-primary" (click)="backAddBook()" />&nbsp;
+                  <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/booksList']" />
+                </div>
+            </div>
+        </div>
+    
+	  </div>
+
+</form>

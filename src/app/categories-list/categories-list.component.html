@@ -1,0 +1,25 @@
+<div class="container">
+	<div id="menu-bar">
+		<h1>Categories</h1>
+		<ul>
+			<li><a href="authorsList">Authors</a></li>
+			<li><a href="categoriesList">Categories</a></li>					
+			<li><a href="">Books</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="container">  
+	<div id="divBooks">
+		<div class="col-sm-4" *ngFor="let category of categoriesList">
+		  <div class="thumbnail" style="height:120px">
+			<div class="caption">
+			  <div>
+				<h3>&nbsp;{{ category.name }}</h3>
+			  </div>
+						  
+			 </div>
+			 </div>
+		</div>
+	</div>
+  </div>

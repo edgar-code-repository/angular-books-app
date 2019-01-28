@@ -1,0 +1,9 @@
+<form [formGroup]="myForm" (ngSubmit)="newFormSubmit()">
+    Value: {{ myForm.value | json }}
+    <hr>
+    Name: <input placeholder="name" formControlName="name">
+    <br/>
+    Email: <input placeholder="email" formControlName="email">
+    <br/><br/>
+    <input type="submit" value="Submit" />
+</form>
