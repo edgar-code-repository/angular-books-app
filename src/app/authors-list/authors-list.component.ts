@@ -10,6 +10,8 @@ import { AuthorsService } from '../services/authors.service';
 export class AuthorsListComponent implements OnInit {
 
   authorsList: Author[];
+  errorMesage: string;
+  booleanError: boolean = false;   
 
   constructor(private authorsService: AuthorsService) { }
 
@@ -17,7 +19,10 @@ export class AuthorsListComponent implements OnInit {
     let observable = this.authorsService.getAuthors();
     observable.subscribe(
       (data) => this.authorsList = data,
-      (error) => console.log("Error:" + error)
+      (error) => { 
+        this.errorMesage = "An error ocurred while calling authorsService (" + error + ").";
+        this.booleanError = true;
+      }
     );
   }
 

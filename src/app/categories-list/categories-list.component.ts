@@ -10,6 +10,8 @@ import { CategoriesService } from '../services/categories.service';
 export class CategoriesListComponent implements OnInit {
 
   categoriesList: Category[];
+  errorMesage: string;
+  booleanError: boolean = false;  
 
   constructor(private categoriesService: CategoriesService) { }
 
@@ -17,7 +19,10 @@ export class CategoriesListComponent implements OnInit {
     let observable = this.categoriesService.getCategories();
     observable.subscribe(
       (data) => this.categoriesList = data,
-      (error) => console.log("Error:" + error)      
+      (error) => {
+        this.errorMesage = "An error ocurred while calling categoriesService (" + error + ").";
+        this.booleanError = true;
+      }      
     );
   }
 

@@ -9,8 +9,15 @@
 	</div>
 </div>
 
-<div class="container">  
-	<div id="divBooks">
+<div class="container">
+	<br/>  
+	<p *ngIf="booleanError">
+        {{ errorMesage }}
+  </p>
+  <p *ngIf="!authorsList.length">
+      There are no authors available.
+  </p>	
+	<div id="divBooks" *ngIf="!booleanError">
 		<div class="col-sm-4" *ngFor="let author of authorsList">
 		  <div class="thumbnail" style="height:120px">
 			<div class="caption">

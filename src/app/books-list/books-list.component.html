@@ -39,7 +39,14 @@
 </form>
 
 <div class="container">  
-  <div id="divBooks">
+    <br/>
+  <p *ngIf="booleanError">
+        {{ errorMesage }}
+  </p>
+  <p *ngIf="!booksList.length">
+      There are no books available.
+  </p>
+  <div id="divBooks" *ngIf="!booleanError">
       <div class="col-sm-4" *ngFor="let book of booksList | sortBooksByName | filterByCategory:[categorySelected]">
         <div class="thumbnail" style="height:400px">
           <img style="height:220px; width:180px;" src="http://localhost:8082/images-test/{{book.imageName}}" />

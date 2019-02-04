@@ -10,7 +10,14 @@
 </div>
 
 <div class="container">  
-	<div id="divBooks">
+		<br/>
+	<p *ngIf="booleanError">
+        {{ errorMesage }}
+  </p>
+  <p *ngIf="!categoriesList.length">
+      There are no categories available.
+  </p>	
+	<div id="divBooks" *ngIf="!booleanError">
 		<div class="col-sm-4" *ngFor="let category of categoriesList">
 		  <div class="thumbnail" style="height:120px">
 			<div class="caption">
