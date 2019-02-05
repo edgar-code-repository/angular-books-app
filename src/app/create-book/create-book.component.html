@@ -54,8 +54,6 @@
                     <div class="input-group">
                         <span class="input-group-addon">Category:</span>
                             <select class="form-control" id="selectCategories" name="selectCategories" formControlName="bookCategory" required>
-                                <option value="">Select Category</option>
-        
                                 <option *ngFor="let category of categoriesList" [value]="category.categoryId">
                                     {{ category.name }}
                                 </option>
@@ -63,6 +61,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row newBookRow">
+                <div class="col-sm-6">              
+                    <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookCategory'].valid && newBookForm.controls['bookCategory'].touched">
+                        Field Category is required.
+                    </div>
+                </div>
+            </div>            
 
         </div>
 		
@@ -90,8 +95,11 @@
         <div class="container">	
             <div class="row newBookRow">
               <div class="col-sm-12">
-                <input type="button" value="Continue" class="btn btn-primary" (click)="continueAddBook()" />&nbsp;
-                <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/booksList']" />
+                <input  type="button" value="Continue" class="btn btn-primary" 
+                        (click)="continueAddBook()" 
+                        [disabled]="!newBookForm.controls['bookName'].valid || !newBookForm.controls['bookIsbn'].valid || !newBookForm.controls['bookCategory'].valid || !newBookForm.controls['bookDescription'].valid" />&nbsp;
+                <input  type="button" value="Cancel" class="btn btn-primary" 
+                        [routerLink]="['/booksList']" />
               </div>
             </div>
         </div>

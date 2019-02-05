@@ -46,8 +46,8 @@ export class CreateBookComponent implements OnInit {
     this.newBookForm = this.formBuilder.group({
       bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       bookIsbn: [null, Validators.required],
-      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(20)])],
-      bookCategory: '',
+      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(500)])],
+      bookCategory: [null, Validators.required],
       bookImage: '',
       bookAuthor: ''
     })    
