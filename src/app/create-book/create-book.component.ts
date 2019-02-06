@@ -53,8 +53,7 @@ export class CreateBookComponent implements OnInit {
       bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(500)])],
       bookCategory: [null, Validators.required],
       bookImage: [null, Validators.required],
-      bookAuthor: [null],
-      //hiddenAuthors: [null, Validators.required],
+      bookAuthor: [null]
     })    
   }
 
