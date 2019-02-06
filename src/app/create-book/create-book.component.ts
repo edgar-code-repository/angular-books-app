@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class CreateBookComponent implements OnInit {
 
   flagContinueSaveBook: boolean = false;
+  flagAddedAuthors: boolean = false;
   categoriesList: Category[];
   authorsList: Author[];
   newBookForm: FormGroup;
@@ -31,6 +32,9 @@ export class CreateBookComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+
+    this.flagAddedAuthors = false;
+
     let observableCategories = this.categoriesService.getCategories();
     observableCategories.subscribe(
       (data) => this.categoriesList = data,
@@ -46,10 +50,11 @@ export class CreateBookComponent implements OnInit {
     this.newBookForm = this.formBuilder.group({
       bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       bookIsbn: [null, Validators.required],
-      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(20)])],
-      bookCategory: '',
-      bookImage: '',
-      bookAuthor: ''
+      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(500)])],
+      bookCategory: [null, Validators.required],
+      bookImage: [null, Validators.required],
+      bookAuthor: [null],
+      //hiddenAuthors: [null, Validators.required],
     })    
   }
 
@@ -69,8 +74,10 @@ export class CreateBookComponent implements OnInit {
       return;
     }
 
+    //var hiddenAuthors = this.newBookForm.controls.hiddenAuthors.value;
     var authorIdSelected = this.newBookForm.controls.bookAuthor.value;
     var selectedAuthorsList = this.selectedAuthorsList;
+    var flagAddedAuthors = this.flagAddedAuthors;
     const checkRoleExistence = authorIdParam => this.selectedAuthorsList.some( ({authorId}) => authorId == authorIdParam);
 
     this.authorsList.forEach(function (author) {
@@ -79,22 +86,44 @@ export class CreateBookComponent implements OnInit {
       if ( (author.authorId == authorIdSelected) &&  (!checkRoleExistence(author.authorId)) )  {
         //console.log("[CreateBookComponent][addSelectedAuthor] element added to array ");
         selectedAuthorsList.push(author);
+        flagAddedAuthors = true;
+        //hiddenAuthors = hiddenAuthors + " | " + author.firstName + " " + author.lastName;
       }
-
+      
     });
+
+    //this.newBookForm.controls.hiddenAuthors.value = hiddenAuthors;
+    this.flagAddedAuthors = flagAddedAuthors;
 
   }
 
   deleteSelectedAuthor(authorId) {
     //console.log("[CreateBookComponent][deleteSelectedAuthor] authorId: " + authorId);
 
+    var search: boolean = false;
     var selectedAuthorsList = this.selectedAuthorsList;
-    selectedAuthorsList.forEach(function (author, index) {  
+    var flagAddedAuthors = this.flagAddedAuthors;
+    //var hiddenAuthors = this.newBookForm.controls.hiddenAuthors.value;
+
+    for (var index=0;index<selectedAuthorsList.length;index++) {
+      var author = selectedAuthorsList[index];
       if (authorId == author.authorId) {
+
+        if (selectedAuthorsList.length == 1) {
+          flagAddedAuthors = false;
+          //hiddenAuthors = "";
+        }
+
         selectedAuthorsList.splice(index, 1);
-        return;
-      }
-    });
+        break;
+        
+      }      
+    }
+
+    this.flagAddedAuthors = flagAddedAuthors;
+
+    
+    
 
   }
 
