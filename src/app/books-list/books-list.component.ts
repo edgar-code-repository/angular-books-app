@@ -13,26 +13,26 @@ import { Router } from '@angular/router';
 })
 export class BooksListComponent implements OnInit {
 
+  flagBooks: boolean = false;
   booksList: Book[];
   categoriesList: Category[];
   categorySelected: any;
   errorMesage: string;
   booleanError: boolean = false;
+  message: string;
 
   constructor(private booksService: BooksService, private categoriesService: CategoriesService, private router: Router) { }
 
   ngOnInit() {
+    this.message = "";
     this.errorMesage = "";
-    let observableBooks = this.booksService.getBooks();
-    observableBooks.subscribe(
-      (data) => this.booksList = data,
-      (error) => {
-        console.log("Error:" + error)
-        this.errorMesage = "An error ocurred while calling booksService (" + error + ").";
-        this.booleanError = true;
-      }
-    );
 
+    this.loadBooks();
+    this.loadCategories();
+
+  }
+
+  loadCategories() {
     let observableCategories = this.categoriesService.getCategories();
     observableCategories.subscribe(
       (data) => this.categoriesList = data,
@@ -43,7 +43,62 @@ export class BooksListComponent implements OnInit {
     );    
   }
 
-  goToRoute(strRouteParam) {
+  loadBooks() {
+    let observableBooks = this.booksService.getBooks();
+    observableBooks.subscribe(
+      (data) => {
+        this.booksList = data;
+        
+        if (this.booksList.length > 0) {
+            this.flagBooks = true;
+            this.message = "";
+        }
+        else {
+          this.flagBooks = false;
+          this.message = "No books available.";
+        }
+      },
+      (error) => {
+        console.log("Error:" + error)
+        this.errorMesage = "An error ocurred while calling booksService (" + error + ").";
+        this.booleanError = true;
+      }
+    );    
+  }
+
+  deleteBook(book: Book) {
+      console.log("deleteBook - book id:" + book.bookId);
+      console.log("deleteBook - book:" + book.name);
+
+      if (confirm("¿Are you sure you want to delete this book?")) {
+
+        let observableDelete = this.booksService.deleteBook(book);
+        observableDelete.subscribe(
+          (data: any) => {
+            console.log("Successfull call to booksService.deleteBook(book)");
+            this.loadBooks();
+          },
+          (error) => {
+            console.log("Error status:" + error.status);
+            console.log("Error message:" + error.message);
+            this.errorMesage = "An error ocurred while calling booksService (" + error.status + " - " + error.message + ").";
+            this.booleanError = true;
+          }
+        );
+
+      }
+
+  }
+
+  editBook(book: Book) {
+      console.log("editBook - book id:" + book.bookId);
+      console.log("editBook - book name:" + book.name);
+
+      this.goToRoute("editBook");
+
+  }
+
+  goToRoute(strRouteParam: string) {
     this.router.navigateByUrl(strRouteParam);
   }
 

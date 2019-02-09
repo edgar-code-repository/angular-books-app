@@ -19,9 +19,10 @@
   </p>	
 	<div id="divBooks" *ngIf="!booleanError">
 		<div class="col-sm-4" *ngFor="let author of authorsList">
-		  <div class="thumbnail" style="height:120px">
+			<div class="thumbnail" style="height:200px">
+					<img style="height:120px; width:120px;" src="http://localhost/author.jpg" />
 			<div class="caption">
-			  <div>
+			  <div style="text-align:center">
 				<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
 			  </div>
 						  

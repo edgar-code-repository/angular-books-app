@@ -7,7 +7,8 @@ import { Author } from '../model/author';
 })
 export class AuthorsService {
 
-  private apiUrl = "http://localhost:9096/bookstore-rest-api/authors";
+  //private apiUrl = "http://localhost:9096/bookstore-rest-api/authors";
+  private apiUrl = "http://localhost:9101/books-api/authors";
   private httpOptions = {
     headers: new HttpHeaders(
       {

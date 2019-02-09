@@ -45,7 +45,7 @@ export class CreateBookComponent implements OnInit {
     observableAuthors.subscribe(
       (data) => this.authorsList = data,
       (error) => console.log("[CreateBookComponent][ngOnInit] Error when calling to authorsService.getAuthors():" + error)
-    );    
+    );
 
     this.newBookForm = this.formBuilder.group({
       bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],

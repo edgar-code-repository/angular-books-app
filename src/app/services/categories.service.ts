@@ -7,7 +7,8 @@ import { Category } from '../model/category';
 })
 export class CategoriesService {
 
-  private apiUrl = "http://localhost:9096/bookstore-rest-api/categories";
+  //private apiUrl = "http://localhost:9096/bookstore-rest-api/categories";
+  private apiUrl = "http://localhost:9101/books-api/categories";
   private httpOptions = {
     headers: new HttpHeaders(
       {

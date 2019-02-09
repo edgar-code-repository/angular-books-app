@@ -7,14 +7,15 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class UploadServiceService {
 
-  private apiUrl = "http://localhost:9096/bookstore-rest-api/uploadBookImage/";
-  private httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'multipart/form-data; boundary=HereGoes',
-      }
-    )
-  };   
+    //private apiUrl = "http://localhost:9096/bookstore-rest-api/uploadBookImage/";
+    private apiUrl = "http://localhost:9101/books-api/uploadBookImage/";
+    private httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'multipart/form-data; boundary=HereGoes',
+          }
+        )
+    };   
 
     constructor(private http: HttpClient) { }
 
