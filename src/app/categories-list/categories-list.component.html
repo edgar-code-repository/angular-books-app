@@ -1,31 +1,32 @@
 <div class="container">
-		<div id="menu-bar">
-				<h1>Categories</h1>
-				<ul>
-						<li><a href="authorsList">Authors</a></li>
-						<li><a href="categoriesList">Categories</a></li>					
-						<li><a href="">Books</a></li>
-				</ul>
-		</div>
+	<div id="menu-bar">
+		<h1>Categories</h1>
+		<ul>
+			<li><a href="authorsList">Authors</a></li>
+			<li><a href="categoriesList">Categories</a></li>					
+			<li><a href="">Books</a></li>
+		</ul>
+	</div>
 </div>
 
 <div class="container">  
-		<br/>
-		<p *ngIf="booleanError">
-					{{ errorMesage }}
-		</p>
-		<p *ngIf="!categoriesList.length">
-				There are no categories available.
-		</p>	
+	<br/>
 
-		<div id="divBooks" *ngIf="!booleanError">
-				<div class="col-sm-4" *ngFor="let category of categoriesList">
-						<div class="thumbnail" style="height:200px">
-								<img style="height:120px; width:120px;" src="http://localhost/books-categories.jpg" />
-								<div class="caption">
-										<div style="text-align:center"><h3>&nbsp;{{ category.name }}</h3></div>
-								</div>
-						</div>
+	<p *ngIf="booleanError">
+		{{ errorMesage }}
+	</p>
+    <p *ngIf="!flagCategories">
+        {{ message }}
+    </p>	
+
+	<div id="divBooks" *ngIf="!booleanError">
+		<div class="col-sm-4" *ngFor="let category of categoriesList">
+			<div class="thumbnail" style="height:200px">
+				<img style="height:120px; width:120px;" src="../../assets/images/books-categories.jpg" />
+				<div class="caption">
+						<div style="text-align:center"><h3>&nbsp;{{ category.name }}</h3></div>
 				</div>
+			</div>
 		</div>
+	</div>
 </div>

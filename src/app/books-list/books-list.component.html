@@ -1,3 +1,4 @@
+
 <div class="container">
 	<div id="menu-bar">
 		<h1>Programming Books</h1>
@@ -38,6 +39,7 @@
 </div>
 </form>
 
+
 <div class="container">  
     <br/>
 
@@ -51,8 +53,8 @@
 
     <div id="divBooks" *ngIf="!booleanError">
         <div class="col-sm-4" *ngFor="let book of booksList | sortBooksByName | filterByCategory:[categorySelected]">
-            <div class="thumbnail" style="height:400px">
-                <img style="height:220px; width:180px;" src="http://localhost/book-rest-api-images/{{book.imageName}}" />
+            <div class="thumbnail" style="height:420px">
+                <img style="height:220px; width:180px;" src="http://localhost:8082/images-test/{{book.imageName}}" />
                 <div class="caption">
                     <div>
                         <h3>&nbsp;{{ book.name }}</h3>
@@ -63,6 +65,9 @@
                         </span>
                         </h4>
                     </div>   
+
+
+                    
                     <input type="button" value="Edit" class="btn btn-primary" (click)="editBook(book)" />
                     &nbsp;
                     <input type="button" value="Delete" class="btn btn-danger" (click)="deleteBook(book)" />&nbsp;

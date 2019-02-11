@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class CreateBookComponent implements OnInit {
 
+  
   flagContinueSaveBook: boolean = false;
   flagAddedAuthors: boolean = false;
   categoriesList: Category[];
@@ -50,7 +51,7 @@ export class CreateBookComponent implements OnInit {
     this.newBookForm = this.formBuilder.group({
       bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       bookIsbn: [null, Validators.required],
-      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(500)])],
+      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(1000)])],
       bookCategory: [null, Validators.required],
       bookImage: [null, Validators.required],
       bookAuthor: [null]

@@ -43,6 +43,7 @@ export class BooksListComponent implements OnInit {
     );    
   }
 
+  
   loadBooks() {
     let observableBooks = this.booksService.getBooks();
     observableBooks.subscribe(
@@ -91,10 +92,10 @@ export class BooksListComponent implements OnInit {
   }
 
   editBook(book: Book) {
-      console.log("editBook - book id:" + book.bookId);
-      console.log("editBook - book name:" + book.name);
+      console.log("[BooksListComponent][editBook] - book id:" + book.bookId);
+      console.log("[BooksListComponent][editBook] - book name:" + book.name);
 
-      this.goToRoute("editBook");
+      this.goToRoute("editBook" + "/" + book.bookId);
 
   }
 

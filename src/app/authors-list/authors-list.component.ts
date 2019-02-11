@@ -11,14 +11,27 @@ export class AuthorsListComponent implements OnInit {
 
   authorsList: Author[];
   errorMesage: string;
-  booleanError: boolean = false;   
+  flagAuthors: boolean = false;
+  booleanError: boolean = false;  
+  message: string; 
 
   constructor(private authorsService: AuthorsService) { }
 
   ngOnInit() {
     let observable = this.authorsService.getAuthors();
     observable.subscribe(
-      (data) => this.authorsList = data,
+      (data) => {
+        this.authorsList = data;
+
+        if (this.authorsList.length > 0) {
+          this.flagAuthors = true;
+          this.message = "";
+        }
+        else {
+          this.flagAuthors = false;
+          this.message = "No authors available.";
+        }        
+      },
       (error) => { 
         this.errorMesage = "An error ocurred while calling authorsService (" + error + ").";
         this.booleanError = true;

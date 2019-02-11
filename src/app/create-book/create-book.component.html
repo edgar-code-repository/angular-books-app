@@ -1,11 +1,8 @@
-<div class="container"> 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Create Book</a>
-            </div>
-        </div>
-    </nav>
+
+<div class="container">
+    <div id="menu-bar">
+        <h1>Create Book</h1>
+    </div>
 </div>
 
 <form [formGroup]="newBookForm" (ngSubmit)="newBookSubmit()"  >
@@ -17,7 +14,7 @@
     <div id="formBook" *ngIf="!flagContinueSaveBook">
 
         <div class="container">
-            <div class="row newBookRow">
+            <div class="row styleMargins">
                 <div class="col-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon">Name:</span>
@@ -67,15 +64,7 @@
                         Field Category is required.
                     </div>
                 </div>
-            </div>            
-
-            <div class="row newBookRow">
-                <div class="col-sm-6">              
-                    <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookCategory'].valid && newBookForm.controls['bookCategory'].touched">
-                        Field Category is required.
-                    </div>
-                </div>
-            </div>            
+            </div>                       
 
         </div>
 		
@@ -87,7 +76,7 @@
                             id="bookDescription" 
                             name="bookDescription" 
                             formControlName="bookDescription"
-                            required rows="5"></textarea>		
+                            required rows="7"></textarea>		
 
                 </div>                                
             </div>       

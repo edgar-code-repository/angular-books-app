@@ -1,33 +1,33 @@
 <div class="container">
-	<div id="menu-bar">
-		<h1>Authors</h1>
-		<ul>
-			<li><a href="authorsList">Authors</a></li>
-			<li><a href="categoriesList">Categories</a></li>					
-			<li><a href="">Books</a></li>
-		</ul>
-	</div>
+		<div id="menu-bar">
+				<h1>Authors</h1>
+				<ul>
+						<li><a href="authorsList">Authors</a></li>
+						<li><a href="categoriesList">Categories</a></li>					
+						<li><a href="">Books</a></li>
+				</ul>
+		</div>
 </div>
 
+
 <div class="container">
-	<br/>  
-	<p *ngIf="booleanError">
-        {{ errorMesage }}
-  </p>
-  <p *ngIf="!authorsList.length">
-      There are no authors available.
-  </p>	
-	<div id="divBooks" *ngIf="!booleanError">
-		<div class="col-sm-4" *ngFor="let author of authorsList">
-			<div class="thumbnail" style="height:200px">
-					<img style="height:120px; width:120px;" src="http://localhost/author.jpg" />
-			<div class="caption">
-			  <div style="text-align:center">
-				<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
-			  </div>
-						  
-			 </div>
-			 </div>
+		<br/>  
+		<p *ngIf="booleanError">
+			{{ errorMesage }}
+		</p>
+		<p *ngIf="!flagBooks">
+			{{ message }}
+		</p>	
+		<div id="divBooks" *ngIf="!booleanError">
+				<div class="col-sm-4" *ngFor="let author of authorsList">
+						<div class="thumbnail" style="height:200px">
+								<img style="height:120px; width:120px;" src="../../assets/images/author.jpg" />
+								<div class="caption">
+										<div style="text-align:center">
+												<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
+										</div>									
+								</div>
+						</div>
+				</div>
 		</div>
-	</div>
 </div>

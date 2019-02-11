@@ -13,7 +13,7 @@ const routes: Routes = [
   { path:"", redirectTo:"/booksList", pathMatch:"full" },
   { path:"booksList", component:BooksListComponent },
   { path:"createBook", component:CreateBookComponent },
-  { path:"editBook", component:EditBookComponent },
+  { path:"editBook/:bookId", component:EditBookComponent },
   { path:"authorsList", component:AuthorsListComponent },
   { path:"categoriesList", component:CategoriesListComponent },
   { path:"formExample", component:FormExampleComponent }, 

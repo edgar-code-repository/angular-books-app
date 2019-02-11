@@ -11,14 +11,27 @@ export class CategoriesListComponent implements OnInit {
 
   categoriesList: Category[];
   errorMesage: string;
-  booleanError: boolean = false;  
+  booleanError: boolean = false;
+  flagCategories: boolean = false;
+  message: string;  
 
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
     let observable = this.categoriesService.getCategories();
     observable.subscribe(
-      (data) => this.categoriesList = data,
+      (data) => {
+        this.categoriesList = data;
+
+        if (this.categoriesList.length > 0) {
+          this.flagCategories = true;
+          this.message = "";
+        }
+        else {
+          this.flagCategories = false;
+          this.message = "No categories available.";
+        }        
+      },
       (error) => {
         this.errorMesage = "An error ocurred while calling categoriesService (" + error + ").";
         this.booleanError = true;
