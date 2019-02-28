@@ -60,6 +60,18 @@ export class BooksService {
 
     }
 
+    public updateBook(book: Book) {
+        console.log("[BooksService][updateBook][START]");
+        console.log("[BooksService][updateBook][apiUrl:" + this.apiUrl + "]");
+        console.log("[BooksService][updateBook][book id :" + book.bookId + "]");
+
+        var updateUrl = this.apiUrl + "/" + book.bookId;
+        let observable = this.http.put(updateUrl, book, this.httpOptions);
+
+        console.log("[BooksService][updateBook][END]");    
+        return observable;        
+    }
+
     public deleteBook(book) {
         console.log("[BooksService][deleteBook][START]");
         console.log("[BooksService][deleteBook][book: " + book.name + "]");

@@ -19,6 +19,8 @@ export class CreateBookComponent implements OnInit {
   
   flagContinueSaveBook: boolean = false;
   flagAddedAuthors: boolean = false;
+  flagErrorSaveBook: boolean = false;
+  saveBookErrorMessage: string;
   categoriesList: Category[];
   authorsList: Author[];
   newBookForm: FormGroup;
@@ -51,7 +53,7 @@ export class CreateBookComponent implements OnInit {
     this.newBookForm = this.formBuilder.group({
       bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
       bookIsbn: [null, Validators.required],
-      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(1000)])],
+      bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(2500)])],
       bookCategory: [null, Validators.required],
       bookImage: [null, Validators.required],
       bookAuthor: [null]
@@ -171,6 +173,8 @@ export class CreateBookComponent implements OnInit {
         
       },
       (error) => {
+        this.flagErrorSaveBook = true;
+        this.saveBookErrorMessage = "Error when calling to upload service.";
         console.log("[CreateBookComponent][newBookSubmit] Error when calling to uploadService.uploadImage:" + error);
       }
     );    
@@ -186,7 +190,11 @@ export class CreateBookComponent implements OnInit {
         console.log("[CreateBookComponent][saveBook] Successfull call to booksService.saveBook");
         this.goToRoute("booksList");
       },
-      (error) => console.log("[CreateBookComponent][saveBook] Error when calling to booksService.saveBook:" + error)
+      (error) => {
+        this.flagErrorSaveBook = true;
+        this.saveBookErrorMessage = "Error when calling to booksService (saveBook).";
+        console.log("[CreateBookComponent][saveBook] Error when calling to booksService.saveBook:" + error); 
+      }
     );      
     
     console.log("[CreateBookComponent][saveBook][END]");

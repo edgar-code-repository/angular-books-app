@@ -22,11 +22,12 @@ export class EditBookComponent implements OnInit {
     flagAddedAuthors: boolean = false;
     categoriesList: Category[];
     authorsList: Author[];
-    newBookForm: FormGroup;
+    editBookForm: FormGroup;
     selectedAuthorsList: Author[] = [];
     selectedFile: File;  
     bookIdSelected: Number;
     bookSelected: Book;
+    imageName: String;
 
     constructor(private categoriesService: CategoriesService, 
       private authorsService: AuthorsService, 
@@ -43,16 +44,42 @@ export class EditBookComponent implements OnInit {
 
       this.flagAddedAuthors = false;
 
+      this.editBookForm = this.formBuilder.group({
+        bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
+        bookIsbn: [null, Validators.required],
+        bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(1000)])],
+        bookCategory: [null, Validators.required],
+        bookAuthor: [null]
+      })       
+
       let observableBookById = this.booksService.getBookById(this.bookIdSelected);
       observableBookById.subscribe(
         (data) => {
           this.bookSelected = data;
           this.selectedAuthorsList = data.authors;
           this.flagAddedAuthors = true;
-        },
-        (error) => console.log("[EditBookComponent][ngOnInit] Error when calling to booksService.getBookById():" + error.status)      
-      );      
+          this.imageName = data.imageName;
 
+          this.editBookForm = this.formBuilder.group({
+            bookName: [data.name, Validators.compose([Validators.required, Validators.minLength(10)])],
+            bookIsbn: [data.isbn, Validators.required],
+            bookDescription: [data.description,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(2500)])],
+            bookCategory: [data.category.categoryId, Validators.required],
+            bookAuthor: [null]
+          }) 
+
+        },
+        (error) => {
+          console.log("[EditBookComponent][ngOnInit] Error when calling to booksService.getBookById():" + error.status);
+          this.editBookForm = this.formBuilder.group({
+            bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
+            bookIsbn: [null, Validators.required],
+            bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(1000)])],
+            bookCategory: [null, Validators.required],
+            bookAuthor: [null]
+          });           
+        }      
+      );      
 
       let observableCategories = this.categoriesService.getCategories();
       observableCategories.subscribe(
@@ -65,14 +92,7 @@ export class EditBookComponent implements OnInit {
         (data) => this.authorsList = data,
         (error) => console.log("[EditBookComponent][ngOnInit] Error when calling to authorsService.getAuthors():" + error.status)
       );
-  
-      this.newBookForm = this.formBuilder.group({
-        bookName: [null, Validators.compose([Validators.required, Validators.minLength(10)])],
-        bookIsbn: [null, Validators.required],
-        bookDescription: [null,Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(1000)])],
-        bookCategory: [null, Validators.required],
-        bookAuthor: [null]
-      })    
+     
     }
     
     continueAddBook() {
@@ -86,13 +106,13 @@ export class EditBookComponent implements OnInit {
     addSelectedAuthor() {
       //console.log("[EditBookComponent][addSelectedAuthor] author selected: " + this.newBookForm.controls.bookAuthor.value);
   
-      if (this.newBookForm.controls.bookAuthor.value == -1) {
+      if (this.editBookForm.controls.bookAuthor.value == -1) {
         alert("An author must be selected");
         return;
       }
   
       //var hiddenAuthors = this.newBookForm.controls.hiddenAuthors.value;
-      var authorIdSelected = this.newBookForm.controls.bookAuthor.value;
+      var authorIdSelected = this.editBookForm.controls.bookAuthor.value;
       var selectedAuthorsList = this.selectedAuthorsList;
       var flagAddedAuthors = this.flagAddedAuthors;
       const checkRoleExistence = authorIdParam => this.selectedAuthorsList.some( ({authorId}) => authorId == authorIdParam);
@@ -150,60 +170,70 @@ export class EditBookComponent implements OnInit {
       console.log("[EditBookComponent][onFileChanged][END]");
     }  
     
-    newBookSubmit() {
-      console.log("[EditBookComponent][newBookSubmit] name: " + this.newBookForm.controls.bookName.value);
-      console.log("[EditBookComponent][newBookSubmit] isbn: " + this.newBookForm.controls.bookIsbn.value);
-      console.log("[EditBookComponent][newBookSubmit] description: " + this.newBookForm.controls.bookDescription.value);
-      console.log("[EditBookComponent][newBookSubmit] category id: " + this.newBookForm.controls.bookCategory.value);
-      console.log("[EditBookComponent][newBookSubmit] image: " + this.newBookForm.controls.bookImage.value);
-      console.log("[EditBookComponent][newBookSubmit] authors: " + this.selectedAuthorsList);
+    editBookSubmit() {
+      console.log("[EditBookComponent][editBookSubmit] name: " + this.editBookForm.controls.bookName.value);
+      console.log("[EditBookComponent][editBookSubmit] isbn: " + this.editBookForm.controls.bookIsbn.value);
+      console.log("[EditBookComponent][editBookSubmit] description: " + this.editBookForm.controls.bookDescription.value);
+      console.log("[EditBookComponent][editBookSubmit] category id: " + this.editBookForm.controls.bookCategory.value);
+      console.log("[EditBookComponent][editBookSubmit] selected image file: " + this.selectedFile);
+      console.log("[EditBookComponent][editBookSubmit] authors: " + this.selectedAuthorsList);
   
       var categorySelected;
       var categoriesList = this.categoriesList;
-      var categoryIdSelected = this.newBookForm.controls.bookCategory.value;
+      var categoryIdSelected = this.editBookForm.controls.bookCategory.value;
       categoriesList.forEach(function (category) {  
         if (categoryIdSelected == category.categoryId) {
           categorySelected = category;
         }
       });    
+
+      var imageNameParameter = this.bookSelected.imageName;
+      if (this.selectedFile != undefined) {
+        imageNameParameter = this.selectedFile.name;
+      }
   
-      var newBook: Book = {
-        bookId: 0,
-        name: this.newBookForm.controls.bookName.value,
-        isbn: this.newBookForm.controls.bookIsbn.value,
+      var editedBook: Book = {
+        bookId: this.bookSelected.bookId,
+        name: this.editBookForm.controls.bookName.value,
+        isbn: this.editBookForm.controls.bookIsbn.value,
         category: categorySelected,
-        description: this.newBookForm.controls.bookDescription.value,
-        imageName: this.selectedFile.name,
+        description: this.editBookForm.controls.bookDescription.value,
+        imageName: imageNameParameter,
         authors: this.selectedAuthorsList
       }
   
-      this.uploadService.uploadImage(this.selectedFile).subscribe(
-        (data) => {
-          console.log("[EditBookComponent][newBookSubmit] Successfull call to uploadService.uploadImage");
+      if (this.selectedFile != undefined) {
+        this.uploadService.uploadImage(this.selectedFile).subscribe(
+          (data) => {
+            console.log("[EditBookComponent][editBookSubmit] Successfull call to uploadService.uploadImage");
                   
-          this.saveBook(newBook);
+            this.updateBook(editedBook);
           
-        },
-        (error) => {
-          console.log("[EditBookComponent][newBookSubmit] Error when calling to uploadService.uploadImage:" + error);
-        }
-      );    
+          },
+          (error) => {
+            console.log("[EditBookComponent][editBookSubmit] Error when calling to uploadService.uploadImage:" + error);
+          }
+        );
+      }
+      else {
+        this.updateBook(editedBook);
+      }    
   
     }
     
-    saveBook(newBook) {
-      console.log("[EditBookComponent][saveBook][START]");
+    updateBook(book) {
+      console.log("[EditBookComponent][updateBook][START]");
   
-      let observableSaveBook = this.booksService.saveBook(newBook);
+      let observableSaveBook = this.booksService.updateBook(book);
       observableSaveBook.subscribe(
         (data) => { 
-          console.log("[EditBookComponent][saveBook] Successfull call to booksService.saveBook");
+          console.log("[EditBookComponent][updateBook] Successfull call to booksService.updateBook");
           this.goToRoute("booksList");
         },
-        (error) => console.log("[EditBookComponent][saveBook] Error when calling to booksService.saveBook:" + error)
+        (error) => console.log("[EditBookComponent][updateBook] Error when calling to booksService.updateBook:" + error)
       );      
       
-      console.log("[EditBookComponent][saveBook][END]");
+      console.log("[EditBookComponent][updateBook][END]");
     }
     
     goToRoute(strRouteParam) {

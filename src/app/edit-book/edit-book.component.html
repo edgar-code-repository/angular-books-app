@@ -5,11 +5,7 @@
     </div>
 </div>
 
-<form [formGroup]="newBookForm" (ngSubmit)="newBookSubmit()"  >
-
-  <!--
-  <h3>{{ bookSelected | json }}</h3>          
-  -->
+<form [formGroup]="editBookForm" (ngSubmit)="editBookSubmit()"  >
 
   <div id="formBook" *ngIf="!flagContinueSaveBook">
 
@@ -18,14 +14,13 @@
               <div class="col-sm-10">
                   <div class="input-group">
                       <span class="input-group-addon">Name:</span>
-                      <input type="text" class="form-control" id="bookName" name="bookName" formControlName="bookName" 
-                             [(ngModel)]="bookSelected.name" required />		
+                      <input type="text" class="form-control" id="bookName" name="bookName" formControlName="bookName" required />		
                   </div>
               </div>
           </div>
           <div class="row newBookRow">
               <div class="col-sm-10">             
-                  <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookName'].valid && newBookForm.controls['bookName'].touched">
+                  <div class="alert alert-danger" *ngIf="!editBookForm.controls['bookName'].valid && editBookForm.controls['bookName'].touched">
                   Field Name is required.
                   </div>
               </div>
@@ -35,14 +30,13 @@
               <div class="col-sm-6">
                   <div class="input-group">
                       <span class="input-group-addon">ISBN:</span>
-                      <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" formControlName="bookIsbn" 
-                             [(ngModel)]="bookSelected.isbn" required />			
+                      <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" formControlName="bookIsbn" required />			
                   </div>	
               </div>
           </div>
           <div class="row newBookRow">
               <div class="col-sm-6">              
-                  <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookIsbn'].valid && newBookForm.controls['bookIsbn'].touched">
+                  <div class="alert alert-danger" *ngIf="!editBookForm.controls['bookIsbn'].valid && editBookForm.controls['bookIsbn'].touched">
                       Field Isbn is required.
                   </div>
               </div>
@@ -52,8 +46,7 @@
               <div class="col-sm-6">
                   <div class="input-group">
                       <span class="input-group-addon">Category:</span>
-                          <select class="form-control" id="selectCategories" name="selectCategories" formControlName="bookCategory" 
-                          [(ngModel)]="bookSelected.category.categoryId" required>
+                          <select class="form-control" id="selectCategories" name="selectCategories" formControlName="bookCategory" required>
                               <option *ngFor="let category of categoriesList" [value]="category.categoryId">
                                   {{ category.name }}
                               </option>
@@ -63,7 +56,7 @@
           </div>
           <div class="row newBookRow">
               <div class="col-sm-6">              
-                  <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookCategory'].valid && newBookForm.controls['bookCategory'].touched">
+                  <div class="alert alert-danger" *ngIf="!editBookForm.controls['bookCategory'].valid && editBookForm.controls['bookCategory'].touched">
                       Field Category is required.
                   </div>
               </div>
@@ -79,14 +72,13 @@
                           id="bookDescription" 
                           name="bookDescription" 
                           formControlName="bookDescription"
-                          required rows="7"
-                          [(ngModel)]="bookSelected.description"></textarea>		
+                          required rows="7"></textarea>		
               </div>                                
           </div>       
           
           <div class="row newBookRow">
               <div class="col-sm-12">             
-                  <div class="alert alert-danger" *ngIf="!newBookForm.controls['bookDescription'].valid && newBookForm.controls['bookDescription'].touched">
+                  <div class="alert alert-danger" *ngIf="!editBookForm.controls['bookDescription'].valid && editBookForm.controls['bookDescription'].touched">
                   Field Description is required.
                   </div>
               </div>   
@@ -99,7 +91,7 @@
             <div class="col-sm-12">
               <input  type="button" value="Continue" class="btn btn-primary" 
                       (click)="continueAddBook()" 
-                      [disabled]="!newBookForm.controls['bookName'].valid || !newBookForm.controls['bookIsbn'].valid || !newBookForm.controls['bookCategory'].valid || !newBookForm.controls['bookDescription'].valid" />
+                      [disabled]="!editBookForm.controls['bookName'].valid || !editBookForm.controls['bookIsbn'].valid || !editBookForm.controls['bookCategory'].valid || !editBookForm.controls['bookDescription'].valid" />
               &nbsp;
               <input  type="button" value="Cancel" class="btn btn-primary" 
                       [routerLink]="['/booksList']" />
@@ -122,7 +114,7 @@
             <div class="row newBookRow">
                 <div class="col-sm-4">
                     <div class="thumbnail" style="height:240px">
-                        <img style="height:220px; width:180px;" src="http://localhost:8082/images-test/{{bookSelected.imageName}}" />
+                        <img style="height:220px; width:180px;" src="http://localhost:8082/images-test/{{ imageName }}" />
                     </div>
                 </div>		
             </div>
@@ -195,7 +187,7 @@
       <div class="container">	
           <div class="row newBookRow">
               <div class="col-sm-12">	
-                <input type="submit" value="Save book" class="btn btn-primary" [disabled]="!newBookForm.valid || !flagAddedAuthors" />&nbsp;
+                <input type="submit" value="Save book" class="btn btn-primary" [disabled]="!editBookForm.valid || !flagAddedAuthors" />&nbsp;
                 <input type="button" value="Back" class="btn btn-primary" (click)="backAddBook()" />&nbsp;
                 <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/booksList']" />
               </div>

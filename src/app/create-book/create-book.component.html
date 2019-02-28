@@ -108,6 +108,10 @@
 	
     <div id="formAuthorsBook" *ngIf="flagContinueSaveBook">
 
+        <div class="container">	
+            <div class="row newBookRow">&nbsp;</div>
+        </div>
+
         <div class="container">
             <div class="row newBookRow">
                 <div class="col-sm-4">
@@ -178,15 +182,15 @@
             </div>
         </div>        
 
-        <!--
-		<div class="container">
-            <div class="row newBookRow">		
-                <div class="col-sm-4">
-                    <h3> ---- flagAddedAuthors: {{ flagAddedAuthors }} ---- </h3> 
-                </div>		
-            </div>
-        </div>                       
-        -->
+        <div class="container">
+            <div class="row newBookRow" *ngIf="flagErrorSaveBook">
+                <div class="col-sm-12">             
+                    <div class="alert alert-danger">
+                    {{ saveBookErrorMessage }}
+                    </div>
+                </div>
+            </div> 
+        </div>  
 
         <div class="container">	
             <div class="row newBookRow">
