@@ -1,0 +1,38 @@
+<div class="container">
+  <div id="menu-bar">
+      <h1>Edit Category</h1>
+  </div>
+</div>
+
+<form [formGroup]="editCategoryForm" (ngSubmit)="editCategorySubmit()"  >
+
+    <div class="container">
+        <div class="row styleMargins">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon">Name:</span>
+                    <input type="text" class="form-control" id="categoryName" name="categoryName" formControlName="categoryName" required />		
+                </div>
+            </div>
+        </div>
+        <div class="row styleMargins">
+            <div class="col-sm-10">             
+                <div class="alert alert-danger" *ngIf="!editCategoryForm.controls['categoryName'].valid && editCategoryForm.controls['categoryName'].touched">
+                Name is required.
+                </div>
+            </div>
+        </div>                                
+
+    </div>
+    
+    <div class="container">	
+      <div class="row styleMargins">
+          <div class="col-sm-12">	
+            <input type="submit" value="Save category" class="btn btn-primary" [disabled]="!editCategoryForm.valid" />&nbsp;
+            <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/categoriesList']" />
+          </div>
+      </div>
+    </div>    
+
+
+</form>

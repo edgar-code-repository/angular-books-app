@@ -171,6 +171,7 @@ export class EditBookComponent implements OnInit {
     }  
     
     editBookSubmit() {
+      
       console.log("[EditBookComponent][editBookSubmit] name: " + this.editBookForm.controls.bookName.value);
       console.log("[EditBookComponent][editBookSubmit] isbn: " + this.editBookForm.controls.bookIsbn.value);
       console.log("[EditBookComponent][editBookSubmit] description: " + this.editBookForm.controls.bookDescription.value);

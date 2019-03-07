@@ -18,16 +18,30 @@
 		<p *ngIf="!flagBooks">
 			{{ message }}
 		</p>	
-		<div id="divBooks" *ngIf="!booleanError">
-				<div class="col-sm-4" *ngFor="let author of authorsList">
-						<div class="thumbnail" style="height:200px">
-								<img style="height:120px; width:120px;" src="../../assets/images/author.jpg" />
-								<div class="caption">
-										<div style="text-align:center">
-												<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
-										</div>									
-								</div>
-						</div>
+
+		<div class="container"> 
+			<div class="row styleMargins">
+				<div class="col-sm-6">
+					<input type="button" value="Create Author" class="btn btn-primary" (click)="goToRoute('createAuthor')" />
 				</div>
+			</div>
+		</div>
+
+		<div id="divBooks" *ngIf="displayAuthors">
+			<div class="col-sm-4" *ngFor="let author of authorsList">
+				<div class="thumbnail" style="height:240px">
+					<img style="height:90px; width:90px;" src="../../assets/images/author.jpg" />
+					<div class="caption">
+						<div style="text-align:center">
+								<h3>&nbsp;{{ author.firstName + " " + author.lastName }}</h3>
+						</div>	
+							
+						<br/>
+						<input type="button" value="Edit" class="btn btn-primary" (click)="editAuthor(author)" />
+						&nbsp;
+						<input type="button" value="Delete" class="btn btn-danger" (click)="deleteAuthor(author)" />&nbsp;																	
+					</div>
+				</div>
+			</div>
 		</div>
 </div>

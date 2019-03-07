@@ -17,14 +17,26 @@
 	</p>
     <p *ngIf="!flagCategories">
         {{ message }}
-    </p>	
+	</p>
+	
+	<div class="container"> 
+		<div class="row categoryRow">
+			<div class="col-sm-6">
+					<input type="button" value="Create Category" class="btn btn-primary" (click)="goToRoute('createCategory')" />
+			</div>
+		</div>
+	</div>
 
-	<div id="divBooks" *ngIf="!booleanError">
+	<div id="divBooks" *ngIf="displayCategories">
 		<div class="col-sm-4" *ngFor="let category of categoriesList">
-			<div class="thumbnail" style="height:200px">
-				<img style="height:120px; width:120px;" src="../../assets/images/books-categories.jpg" />
+			<div class="thumbnail" style="height:240px">
+				<img style="height:90px; width:90px;" src="../../assets/images/books-categories.jpg" />
 				<div class="caption">
 						<div style="text-align:center"><h3>&nbsp;{{ category.name }}</h3></div>
+						<br/>
+						<input type="button" value="Edit" class="btn btn-primary" (click)="editCategory(category)" />
+						&nbsp;
+						<input type="button" value="Delete" class="btn btn-danger" (click)="deleteCategory(category)" />&nbsp;						
 				</div>
 			</div>
 		</div>

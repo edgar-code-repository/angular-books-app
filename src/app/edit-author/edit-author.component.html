@@ -1,0 +1,56 @@
+<div class="container">
+  <div id="menu-bar">
+      <h1>Edit Author</h1>
+  </div>
+</div>
+
+<form [formGroup]="editAuthorForm" (ngSubmit)="editAuthorSubmit()"  >
+
+    <div class="container">
+        <div class="row styleMargins">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon">First name:</span>
+                    <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName" required />		
+                </div>
+            </div>
+        </div>
+        <div class="row newBookRow">
+            <div class="col-sm-10">             
+                <div class="alert alert-danger" *ngIf="!editAuthorForm.controls['firstName'].valid && editAuthorForm.controls['firstName'].touched">
+                First name is required.
+                </div>
+            </div>
+        </div>            
+        
+        <div class="row newBookRow">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Last name:</span>
+                    <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" required />			
+                </div>	
+            </div>
+        </div>
+        <div class="row newBookRow">
+            <div class="col-sm-6">              
+                <div class="alert alert-danger" *ngIf="!editAuthorForm.controls['lastName'].valid && editAuthorForm.controls['lastName'].touched">
+                    Last name is required.
+                </div>
+            </div>
+        </div>                     
+
+    </div>
+    
+
+    <div class="container">	
+      <div class="row newBookRow">
+          <div class="col-sm-12">	
+            <input type="submit" value="Save author" class="btn btn-primary" [disabled]="!editAuthorForm.valid" />&nbsp;
+            <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/authorsList']" />
+          </div>
+      </div>
+    </div>    
+
+
+
+</form>

@@ -5,7 +5,6 @@ import { CategoriesService } from '../services/categories.service';
 import { Category } from '../model/category';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-books-list',
   templateUrl: './books-list.component.html',
@@ -98,6 +97,7 @@ export class BooksListComponent implements OnInit {
       this.goToRoute("editBook" + "/" + book.bookId);
 
   }
+
 
   goToRoute(strRouteParam: string) {
     this.router.navigateByUrl(strRouteParam);

@@ -10,6 +10,7 @@ import { CreateBookComponent } from './create-book/create-book.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 import { AuthorsListComponent } from './authors-list/authors-list.component';
 
 import { BooksService } from './services/books.service';
@@ -19,6 +20,9 @@ import { SortBooksByNamePipe } from './pipes/sort-books-by-name.pipe';
 import { FilterByCategoryPipe } from './pipes/filter-by-category.pipe';
 import { FormExampleComponent } from './form-example/form-example.component';
 import { UploadExampleComponent } from './upload-example/upload-example.component';
+import { CreateAuthorComponent } from './create-author/create-author.component';
+import { EditAuthorComponent } from './edit-author/edit-author.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { UploadExampleComponent } from './upload-example/upload-example.componen
     SortBooksByNamePipe,
     FilterByCategoryPipe,
     FormExampleComponent,
-    UploadExampleComponent
+    UploadExampleComponent,
+    CreateCategoryComponent,
+    CreateAuthorComponent,
+    EditAuthorComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

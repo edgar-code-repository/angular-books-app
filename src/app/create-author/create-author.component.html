@@ -1,0 +1,67 @@
+
+<div class="container">
+  <div id="menu-bar">
+      <h1>Create Author</h1>
+  </div>
+</div>
+
+<form [formGroup]="newAuthorForm" (ngSubmit)="newAuthorSubmit()" >      
+
+  <div id="formAuthor">
+
+      <div class="container">
+          <div class="row styleMargins">
+              <div class="col-sm-10">
+                  <div class="input-group">
+                      <span class="input-group-addon">First name:</span>
+                      <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName" required />		
+                  </div>
+              </div>
+          </div>
+          <div class="row styleMargins">
+              <div class="col-sm-10">             
+                  <div class="alert alert-danger" *ngIf="!newAuthorForm.controls['firstName'].valid && newAuthorForm.controls['firstName'].touched">
+                  First Name is required.
+                  </div>
+              </div>
+          </div>            
+                 
+          <div class="row styleMargins">
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon">Last name:</span>
+                    <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" required />		
+                </div>
+            </div>
+        </div>
+        <div class="row styleMargins">
+            <div class="col-sm-10">             
+                <div class="alert alert-danger" *ngIf="!newAuthorForm.controls['lastName'].valid && newAuthorForm.controls['lastName'].touched">
+                Last Name is required.
+                </div>
+            </div>
+        </div>            
+      </div>     
+
+      <div class="container">
+          <div class="row styleMargins" *ngIf="flagErrorSaveAuthor">
+              <div class="col-sm-12">             
+                  <div class="alert alert-danger">
+                  {{ saveAuthorErrorMessage }}
+                  </div>
+              </div>
+          </div> 
+      </div>  
+
+      <div class="container">	
+          <div class="row styleMargins">
+              <div class="col-sm-12">	
+                <input type="submit" value="Save author" class="btn btn-primary" [disabled]="!newAuthorForm.valid" />&nbsp;
+                <input type="button" value="Cancel" class="btn btn-primary" [routerLink]="['/authorsList']" />
+              </div>
+          </div>
+      </div>
+  
+</div>
+
+</form>
