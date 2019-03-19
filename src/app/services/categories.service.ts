@@ -7,17 +7,7 @@ import { Category } from '../model/category';
 })
 export class CategoriesService {
 
-  //private apiUrl = "http://localhost:9096/bookstore-rest-api/categories";
   private apiUrl = "http://localhost:9292/books-rest-api/categories";
-  
-  /*private httpOptions = {
-    headers: new HttpHeaders(
-      {
-        'Content-Type': 'application/json',
-        'Authorization':"Basic dXNlcjpwd2Q="
-      }
-    )
-  };*/ 
 
   private httpOptions = {
     headers: new HttpHeaders(
@@ -28,12 +18,12 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
 
   public getCategories() {
-    //console.log("[CategoriesService][getCategories][START]");
-    //console.log("[CategoriesService][getCategories][apiUrl:" + this.apiUrl + "]");
+    console.log("[CategoriesService][getCategories][START]");
+    console.log("[CategoriesService][getCategories][apiUrl:" + this.apiUrl + "]");
 
     let observable = this.http.get<Category[]>(this.apiUrl, this.httpOptions);
     
-    //console.log("[CategoriesService][getCategories][END]");
+    console.log("[CategoriesService][getCategories][END]");
     return observable;
   }  
 
@@ -49,13 +39,13 @@ export class CategoriesService {
   }   
 
   public saveCategory(newCategory: Category) {
-    //console.log("[CategoriesService][saveCategory][START]");
-    //console.log("[CategoriesService][saveCategory][apiUrl:" + this.apiUrl + "]");
-    //console.log("[CategoriesService][saveCategory][newCategory:" + newCategory.name + "]");
+    console.log("[CategoriesService][saveCategory][START]");
+    console.log("[CategoriesService][saveCategory][apiUrl:" + this.apiUrl + "]");
+    console.log("[CategoriesService][saveCategory][newCategory:" + newCategory.name + "]");
 
     let observable = this.http.post(this.apiUrl, newCategory, this.httpOptions);
 
-    //console.log("[CategoriesService][saveCategory][END]");    
+    console.log("[CategoriesService][saveCategory][END]");    
     return observable;
 
   }

@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class UploadServiceService {
 
-    //private apiUrl = "http://localhost:9096/bookstore-rest-api/uploadBookImage/";
     private apiUrl = "http://localhost:9292/books-rest-api/uploadBookImage/";
     private httpOptions = {
         headers: new HttpHeaders(
@@ -25,14 +24,8 @@ export class UploadServiceService {
         const formData = new FormData();
         formData.append('file', image, image.name);
 
-
-        console.log("[UploadServiceService][uploadImage] Http Post...");
-        //let observableUpload = this.http.post(this.apiUrl, formData, this.httpOptions);
-        //let observableUpload = this.http.post(this.apiUrl, formData);
-
         console.log("[UploadServiceService][uploadImage][END]");
         return this.http.post(this.apiUrl, formData);
-        //return observableUpload;
     }
 
 

@@ -7,18 +7,7 @@ import { Book } from '../model/book';
 })
 export class BooksService {
 
-  
-    //private apiUrl = "http://localhost:9096/bookstore-rest-api/books";
-    //private apiUrl = "http://localhost:9101/books-api/books";
     private apiUrl = "http://localhost:9292/books-rest-api/books";
-    /*private httpOptions = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json',
-          'Authorization':"Basic dXNlcjpwd2Q="
-        }
-      )
-    };*/  
 
     private httpOptions = {
         headers: new HttpHeaders(
@@ -29,12 +18,12 @@ export class BooksService {
     constructor(private http: HttpClient) { }
 
     public getBooks() {
-        //console.log("[BooksService][getBooks][START]");
-        //console.log("[BooksService][getBooks][apiUrl:" + this.apiUrl + "]");
+        console.log("[BooksService][getBooks][START]");
+        console.log("[BooksService][getBooks][apiUrl:" + this.apiUrl + "]");
 
         let observable = this.http.get<Book[]>(this.apiUrl, this.httpOptions);
       
-        //console.log("[BooksService][getBooks][END]");
+        console.log("[BooksService][getBooks][END]");
         return observable;
     }
 
