@@ -1,30 +1,27 @@
-Bookstore REST Client
-------------------------------------------------------------------------------------------------------------------------
+BOOKS APP
+----------------------------------------------------------------------------------------------------------------
 
-Aplicación de ejemplo desarrollada con Angular 7 y Bootstrap que permite crear categorias, autores y libros
-utilizando como backend la api Bookstore REST API (https://github.com/edgar-code-repository/spring-boot-rest-books.git)
+Angular app that allows the creation of authors, categories and books using a Rest API as backend.
 
-------------------------------------------------------------------------------------------------------------------------
+App developed with Angular 7 and Boostrap.
 
-Pantalla principal de vista books:
+----------------------------------------------------------------------------------------------------------------
+
+Books screen:
 
 ![Screenshot Books](screenshots/ng-books-books-main.png)
 
-------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
-Pantalla principal de vista categories:
+Categories screen:
 
 ![Screenshot Categories](screenshots/ng-books-categories-main.png)
 
-------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
-Pantalla principal de vista authors:
+Authors screen:
 
 ![Screenshot Authors](screenshots/ng-books-authors-main.png)
 
-------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
-Github URL: https://github.com/edgar-code-repository/angular-books-app.git
-
-
-------------------------------------------------------------------------------------------------------------------------
